@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products | Select Door &amp; Window</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-name">Select Door &amp; Window</div>
+    <div class="nav-logo-tag">Est. Escondido, CA &middot; Lic. #930632</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="products.html" class="active">Products</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="tel:7604320206" class="nav-cta">&#128222; 760-432-0206</a></li>
+  </ul>
+  <div class="nav-mobile-right">
+    <a href="tel:7604320206" class="nav-mobile-call">&#128222; 760-432-0206</a>
+    <div class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div>
+      <div class="nav-logo-name">Select Door &amp; Window</div>
+      <div class="nav-logo-tag">Escondido, CA &middot; Lic. #930632</div>
+    </div>
+    <div class="mobile-menu-close" onclick="closeMobileMenu()">&#10005;</div>
+  </div>
+  <div class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="products.html">Products</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="tel:7604320206" class="mobile-menu-cta">&#128222;&nbsp; Call (760) 432-0206</a>
+</div>
+
+<a href="tel:7604320206" class="sticky-call-bar">
+  &#128222;&nbsp; Tap to Call &mdash; (760) 432-0206
+</a>
+
+<div class="page-hero">
+  <div class="section-label">What We Carry</div>
+  <h1 class="section-title">Our Products &amp; Brands</h1>
+  <p class="section-sub">We partner with the most trusted door and window manufacturers in the industry.</p>
+</div>
+
+<section style="background:var(--white)">
+  <div class="products-grid">
+    <div class="product-card andersen reveal">
+      <div class="product-card-header"><h3>Andersen</h3><p>Windows &amp; Doors &middot; Certified Dealer</p></div>
+      <div class="product-card-body">
+        <div class="certified-badge">&#127942; Andersen Certified Dealer</div>
+        <p>As a certified Andersen dealer, we carry the full product lineup including the exclusive Big Door Gallery &mdash; large-format folding and sliding systems that transform any space.</p>
+        <div class="product-lines">
+          <span class="product-line-tag">100 Series</span>
+          <span class="product-line-tag">200 Series</span>
+          <span class="product-line-tag">400 Series</span>
+          <span class="product-line-tag">E-Series</span>
+          <span class="product-line-tag">Big Door Gallery</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-header"><h3>Milgard</h3><p>Windows &amp; Patio Doors</p></div>
+      <div class="product-card-body">
+        <p>A California favorite &mdash; Milgard windows are designed for our climate, with strong energy efficiency ratings and a full lifetime warranty on most products.</p>
+        <div class="product-lines">
+          <span class="product-line-tag">Tuscany Series</span>
+          <span class="product-line-tag">Style Line</span>
+          <span class="product-line-tag">Trinsic Series</span>
+          <span class="product-line-tag">Patio Doors</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-header"><h3>La Cantina</h3><p>Folding &amp; Sliding Door Systems</p></div>
+      <div class="product-card-body">
+        <p>La Cantina specializes in large opening door systems that blur the line between indoor and outdoor living. Perfect for patios and modern architecture.</p>
+        <div class="product-lines">
+          <span class="product-line-tag">Bi-Fold Doors</span>
+          <span class="product-line-tag">Multi-Slide</span>
+          <span class="product-line-tag">Pivot Doors</span>
+          <span class="product-line-tag">Windows</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-header"><h3>Marvin</h3><p>Windows &amp; Doors</p></div>
+      <div class="product-card-body">
+        <p>Marvin is known for exceptional craftsmanship and design flexibility &mdash; a top choice for custom homes and remodels.</p>
+        <div class="product-lines">
+          <span class="product-line-tag">Signature</span>
+          <span class="product-line-tag">Essential</span>
+          <span class="product-line-tag">Modern</span>
+          <span class="product-line-tag">Elevate</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-header"><h3>EL&amp;EL</h3><p>Wood Products</p></div>
+      <div class="product-card-body">
+        <p>EL&amp;EL delivers quality wood door and window products with a focus on traditional craftsmanship and natural materials.</p>
+        <div class="product-lines">
+          <span class="product-line-tag">Wood Doors</span>
+          <span class="product-line-tag">Wood Windows</span>
+          <span class="product-line-tag">Custom Millwork</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card reveal">
+      <div class="product-card-header"><h3>TM Cobb</h3><p>Interior Doors &amp; Millwork</p></div>
+      <div class="product-card-body">
+        <p>TM Cobb is a leading manufacturer of interior doors and architectural millwork &mdash; a go-to for builders and remodelers.</p>
+        <div class="product-lines">
+          <span class="product-line-tag">Interior Doors</span>
+          <span class="product-line-tag">Door Frames</span>
+          <span class="product-line-tag">Moulding</span>
+          <span class="product-line-tag">Custom Orders</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:48px">
+    <p style="font-size:15px;color:var(--text-mid);margin-bottom:20px">Not sure which brand is right for your project?</p>
+    <a class="btn-primary" href="services.html">Book a Free Consultation &rarr;</a>
+  </div>
+</section>
+
+<div class="license-strip">CA Contractor License <span>#930632</span> &nbsp;&middot;&nbsp; Select Door and Window, Inc. &nbsp;&middot;&nbsp; Licensed &middot; Bonded &middot; Insured</div>
+<footer>
+  <div>
+    <div class="footer-brand-name">Select Door &amp; Window</div>
+    <div class="footer-brand-tag">Inc. &middot; Escondido, California</div>
+    <p class="footer-desc">Full-service door and window sales, installation, and repair serving North County San Diego since 2008. Andersen Certified Dealer.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Navigation</h5>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Contact</h5>
+    <ul class="footer-links">
+      <li><a href="tel:7604320206">(760) 432-0206</a></li>
+      <li><a href="mailto:office@selectdw.com">office@selectdw.com</a></li>
+      <li><a>1291 Pacific Oaks Pl #116</a></li>
+      <li><a>Escondido, CA 92029</a></li>
+      <li><a href="https://www.facebook.com/selectdoorandwindow/" target="_blank">Facebook Page</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>&copy; 2026 Select Door and Window, Inc. All rights reserved.</p>
+  <p>CA Lic. <a href="#">#930632</a></p>
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>

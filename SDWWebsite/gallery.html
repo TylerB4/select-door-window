@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | Select Door &amp; Window</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-name">Select Door &amp; Window</div>
+    <div class="nav-logo-tag">Est. Escondido, CA &middot; Lic. #930632</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="tel:7604320206" class="nav-cta">&#128222; 760-432-0206</a></li>
+  </ul>
+  <div class="nav-mobile-right">
+    <a href="tel:7604320206" class="nav-mobile-call">&#128222; 760-432-0206</a>
+    <div class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div>
+      <div class="nav-logo-name">Select Door &amp; Window</div>
+      <div class="nav-logo-tag">Escondido, CA &middot; Lic. #930632</div>
+    </div>
+    <div class="mobile-menu-close" onclick="closeMobileMenu()">&#10005;</div>
+  </div>
+  <div class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="products.html">Products</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="tel:7604320206" class="mobile-menu-cta">&#128222;&nbsp; Call (760) 432-0206</a>
+</div>
+
+<a href="tel:7604320206" class="sticky-call-bar">
+  &#128222;&nbsp; Tap to Call &mdash; (760) 432-0206
+</a>
+
+<div class="page-hero">
+  <div class="section-label">Our Work</div>
+  <h1 class="section-title">Project Gallery</h1>
+  <p class="section-sub">Browse completed installations across North County San Diego. Click any category to expand, then scroll through the photos.</p>
+</div>
+
+<section class="gallery-section">
+  <div class="gallery-accordion">
+    <div class="gallery-panel open" id="panel-entry">
+      <div class="gallery-panel-header" onclick="togglePanel('panel-entry')">
+        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#128682;</div><div><div class="gallery-panel-title">Entry Doors</div><div class="gallery-panel-count" id="count-entry">6 photos</div></div></div>
+        <div class="gallery-panel-chevron">&#9660;</div>
+      </div>
+      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-entry"></div></div></div>
+    </div>
+    <div class="gallery-panel" id="panel-windows">
+      <div class="gallery-panel-header" onclick="togglePanel('panel-windows')">
+        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#129695;</div><div><div class="gallery-panel-title">Exterior Windows</div><div class="gallery-panel-count" id="count-windows">6 photos</div></div></div>
+        <div class="gallery-panel-chevron">&#9660;</div>
+      </div>
+      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-windows"></div></div></div>
+    </div>
+    <div class="gallery-panel" id="panel-patio">
+      <div class="gallery-panel-header" onclick="togglePanel('panel-patio')">
+        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#127968;</div><div><div class="gallery-panel-title">Patio &amp; Sliding Doors</div><div class="gallery-panel-count" id="count-patio">6 photos</div></div></div>
+        <div class="gallery-panel-chevron">&#9660;</div>
+      </div>
+      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-patio"></div></div></div>
+    </div>
+    <div class="gallery-panel" id="panel-interior">
+      <div class="gallery-panel-header" onclick="togglePanel('panel-interior')">
+        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#127969;</div><div><div class="gallery-panel-title">Interior Doors</div><div class="gallery-panel-count" id="count-interior">6 photos</div></div></div>
+        <div class="gallery-panel-chevron">&#9660;</div>
+      </div>
+      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-interior"></div></div></div>
+    </div>
+  </div>
+  <div class="gallery-add-note">
+    <p><strong>To swap in your own photos:</strong> Open <code>gallery.html</code> in any text editor, find the <code>galleryData</code> object in the &lt;script&gt; section, and replace each <code>src</code> URL with your own image path or hosted URL. Each entry also has a <code>label</code> for the caption.</p>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxBg(event)">
+  <span class="lightbox-close" onclick="closeLightboxDirect()">&#10005;</span>
+  <span class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">&#8249;</span>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <span class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">&#8250;</span>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<div class="license-strip">CA Contractor License <span>#930632</span> &nbsp;&middot;&nbsp; Select Door and Window, Inc. &nbsp;&middot;&nbsp; Licensed &middot; Bonded &middot; Insured</div>
+<footer>
+  <div>
+    <div class="footer-brand-name">Select Door &amp; Window</div>
+    <div class="footer-brand-tag">Inc. &middot; Escondido, California</div>
+    <p class="footer-desc">Full-service door and window sales, installation, and repair serving North County San Diego since 2008. Andersen Certified Dealer.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Navigation</h5>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Contact</h5>
+    <ul class="footer-links">
+      <li><a href="tel:7604320206">(760) 432-0206</a></li>
+      <li><a href="mailto:office@selectdw.com">office@selectdw.com</a></li>
+      <li><a>1291 Pacific Oaks Pl #116</a></li>
+      <li><a>Escondido, CA 92029</a></li>
+      <li><a href="https://www.facebook.com/selectdoorandwindow/" target="_blank">Facebook Page</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>&copy; 2026 Select Door and Window, Inc. All rights reserved.</p>
+  <p>CA Lic. <a href="#">#930632</a></p>
+</div>
+
+<script src="scripts.js"></script>
+<script>
+// ================================================================
+// GALLERY PHOTOS
+// To replace with your own images:
+//   1. Open gallery.html in a text editor
+//   2. Find this galleryData section
+//   3. Replace each "src" URL with your own image path or URL
+//   4. Update the "label" text for each photo caption
+// ================================================================
+const galleryData = {
+  entry: [
+    { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75', label: 'Fiberglass Entry Door · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=75', label: 'Steel Entry Door · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=75', label: 'Wood Entry Door · Vista' },
+    { src: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=600&q=75', label: 'Entry Door with Sidelites · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&q=75', label: 'Double Entry Doors · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=75', label: 'Andersen Entry Door · Oceanside' },
+  ],
+  windows: [
+    { src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=75', label: 'Full Window Replacement · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&q=75', label: 'Casement Windows · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=75', label: 'Double-Hung Windows · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75', label: 'Milgard Sliding Windows · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=75', label: 'Picture Window · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=75', label: 'Marvin Windows · Escondido' },
+  ],
+  patio: [
+    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75', label: 'Bi-Fold Patio System · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&q=75', label: 'French Doors · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=600&q=75', label: 'Multi-Slide Door · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=75', label: 'Andersen Sliding Door · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=75', label: 'Double French Doors · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=600&q=75', label: 'La Cantina Folding Wall · Oceanside' },
+  ],
+  interior: [
+    { src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=75', label: 'Interior Door Package · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=75', label: 'Panel Doors · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600566752734-2a0cd66be00e?w=600&q=75', label: 'Full Home Install · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=75', label: 'TM Cobb Flush Doors · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=75', label: 'Barn Door · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=75', label: 'EL&EL Wood Doors · Oceanside' },
+  ]
+};
+
+let currentCategory = [];
+let currentIndex = 0;
+
+function buildGallery() {
+  Object.entries(galleryData).forEach(([cat, photos]) => {
+    const row = document.getElementById('scroll-' + cat);
+    const countEl = document.getElementById('count-' + cat);
+    if (!row) return;
+    if (countEl) countEl.textContent = photos.length + ' photo' + (photos.length !== 1 ? 's' : '');
+    photos.forEach((photo, i) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'gallery-thumb';
+      thumb.innerHTML = '<img src="' + photo.src + '" alt="' + photo.label + '" loading="lazy"><div class="gallery-thumb-label">' + photo.label + '</div>';
+      thumb.addEventListener('click', () => openLightbox(cat, i));
+      row.appendChild(thumb);
+    });
+  });
+}
+
+function togglePanel(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function openLightbox(cat, index) {
+  currentCategory = galleryData[cat];
+  currentIndex = index;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateLightbox() {
+  const photo = currentCategory[currentIndex];
+  document.getElementById('lightbox-img').src = photo.src;
+  document.getElementById('lightbox-caption').textContent = photo.label + '  (' + (currentIndex + 1) + ' / ' + currentCategory.length + ')';
+}
+
+function closeLightboxBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightboxDirect();
+}
+function closeLightboxDirect() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lightboxNav(dir) {
+  currentIndex = (currentIndex + dir + currentCategory.length) % currentCategory.length;
+  updateLightbox();
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'ArrowLeft') lightboxNav(-1);
+  if (e.key === 'Escape') closeLightboxDirect();
+});
+
+buildGallery();
+</script>
+</body>
+</html>
