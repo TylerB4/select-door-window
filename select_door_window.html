@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Door &amp; Window | Escondido, CA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #1a2332; --navy-mid: #243044; --navy-light: #2e3d56;
+    --gold: #c9a84c; --gold-light: #e8c97a;
+    --cream: #f8f5ef; --cream-dark: #ede9e0;
+    --text-dark: #1a2332; --text-mid: #445568; --text-light: #7a8fa3;
+    --white: #ffffff;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+
+  nav { background: var(--navy); display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 72px; border-bottom: 1px solid rgba(201,168,76,0.3); position: relative; z-index: 10; }
+  .nav-logo { cursor: pointer; }
+  .nav-logo-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--white); letter-spacing: 0.02em; line-height: 1.1; }
+  .nav-logo-tag { font-size: 10px; font-weight: 300; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 13px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: color 0.2s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); border-bottom-color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 10px 22px; border-radius: 4px; font-weight: 500 !important; border-bottom: none !important; }
+  .nav-cta:hover { background: var(--gold-light) !important; }
+  .page { display: none; }
+  .page.active { display: block; }
+  section { padding: 80px 48px; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: var(--text-dark); line-height: 1.15; margin-bottom: 16px; }
+  .section-sub { font-size: 16px; color: var(--text-mid); max-width: 560px; font-weight: 300; line-height: 1.7; }
+  .section-header { margin-bottom: 48px; }
+  .btn-primary { background: var(--gold); color: var(--navy); padding: 14px 30px; border-radius: 4px; font-size: 14px; font-weight: 500; text-decoration: none; letter-spacing: 0.04em; border: none; cursor: pointer; transition: all 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-outline-light { background: transparent; color: var(--white); padding: 13px 28px; border-radius: 4px; font-size: 14px; font-weight: 400; text-decoration: none; border: 1px solid rgba(255,255,255,0.5); cursor: pointer; transition: all 0.2s; display: inline-block; letter-spacing: 0.04em; }
+  .btn-outline-light:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.8); }
+  .btn-dark { background: transparent; color: var(--navy); padding: 13px 28px; border-radius: 4px; font-size: 14px; border: 1px solid var(--cream-dark); cursor: pointer; transition: all 0.2s; display: inline-block; letter-spacing: 0.04em; }
+  .btn-dark:hover { border-color: var(--navy); }
+  .page-hero { background: var(--navy); padding: 64px 48px; }
+  .page-hero .section-label { color: var(--gold); }
+  .page-hero .section-title { color: var(--white); margin-bottom: 12px; }
+  .page-hero .section-sub { color: rgba(255,255,255,0.55); }
+  .trust-bar { background: var(--navy-mid); padding: 20px 48px; display: flex; align-items: center; justify-content: center; gap: 48px; border-bottom: 1px solid rgba(201,168,76,0.15); flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.7); font-size: 13px; }
+  .trust-dot { color: var(--gold); font-size: 16px; }
+  .trust-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.1); }
+
+  /* HERO */
+  .hero-full { position: relative; min-height: 620px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+  .hero-bg-img { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80'); background-size: cover; background-position: center; transform: scale(1.03); transition: transform 6s ease; }
+  .hero-full:hover .hero-bg-img { transform: scale(1); }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,22,35,0.95) 0%, rgba(15,22,35,0.65) 45%, rgba(15,22,35,0.25) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 0 64px 64px; max-width: 900px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4); border-radius: 40px; padding: 6px 18px; margin-bottom: 24px; width: fit-content; }
+  .hero-badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+  .hero-badge span { font-size: 11px; color: var(--gold-light); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
+  .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 62px; font-weight: 700; color: var(--white); line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .hero-content h1 em { color: var(--gold); font-style: normal; }
+  .hero-content p { font-size: 17px; color: rgba(255,255,255,0.7); max-width: 520px; margin-bottom: 36px; line-height: 1.7; font-weight: 300; }
+  .hero-actions { display: flex; gap: 14px; align-items: center; margin-bottom: 48px; }
+  .hero-stats { display: flex; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; backdrop-filter: blur(8px); background: rgba(15,22,35,0.5); width: fit-content; }
+  .hero-stat { padding: 18px 32px; border-right: 1px solid rgba(255,255,255,0.1); text-align: center; }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--gold); line-height: 1; }
+  .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; font-weight: 300; letter-spacing: 0.04em; }
+  .photo-credit { position: absolute; bottom: 12px; right: 16px; z-index: 3; font-size: 10px; color: rgba(255,255,255,0.25); }
+  .photo-credit a { color: rgba(255,255,255,0.25); text-decoration: none; }
+
+  /* HOME SERVICES */
+  .services-preview { background: var(--white); }
+  .services-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .service-card-lg { background: var(--cream); border: 1px solid var(--cream-dark); border-radius: 12px; padding: 48px 40px; position: relative; overflow: hidden; transition: all 0.25s; }
+  .service-card-lg:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(26,35,50,0.1); }
+  .service-card-lg::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .service-card-lg:hover::before { transform: scaleX(1); }
+  .service-card-icon { font-size: 44px; margin-bottom: 20px; }
+  .service-card-lg h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text-dark); margin-bottom: 14px; }
+  .service-card-lg p { font-size: 15px; color: var(--text-mid); line-height: 1.75; margin-bottom: 20px; }
+  .service-tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .service-tag { font-size: 12px; color: var(--text-mid); background: var(--white); border: 1px solid var(--cream-dark); border-radius: 20px; padding: 4px 14px; }
+  .service-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--gold); cursor: pointer; }
+
+  /* BRANDS */
+  .brands-bg { background: var(--cream); }
+  .brands-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 40px; border: 1px solid var(--cream-dark); border-radius: 10px; overflow: hidden; }
+  .brand-item { padding: 28px 20px; text-align: center; border-right: 1px solid var(--cream-dark); border-bottom: 1px solid var(--cream-dark); transition: background 0.2s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .brand-item:hover { background: var(--white); }
+  .brand-item:nth-child(3n) { border-right: none; }
+  .brand-item:nth-child(4), .brand-item:nth-child(5), .brand-item:nth-child(6) { border-bottom: none; }
+  .brand-name { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); font-weight: 700; }
+  .brand-desc { font-size: 12px; color: var(--text-light); font-weight: 300; }
+  .brand-badge { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 3px 10px; margin-top: 2px; }
+
+  /* CONTACT */
+  .contact-bg { background: var(--navy); position: relative; overflow: hidden; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-details { margin-top: 36px; display: flex; flex-direction: column; gap: 14px; }
+  .contact-row { display: flex; gap: 14px; align-items: center; }
+  .contact-icon { width: 40px; height: 40px; border: 1px solid rgba(201,168,76,0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .contact-row p { color: rgba(255,255,255,0.55); font-size: 12px; font-weight: 300; }
+  .contact-row strong { color: var(--white); font-size: 14px; font-weight: 400; display: block; margin-bottom: 2px; }
+  .contact-form { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 36px; }
+  .form-row { margin-bottom: 14px; }
+  .form-row label { display: block; font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 7px; }
+  .form-row input, .form-row select, .form-row textarea { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 11px 14px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; appearance: none; }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: rgba(201,168,76,0.5); }
+  .form-row input::placeholder, .form-row textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .form-row select option { background: var(--navy-mid); color: var(--white); }
+  .form-row textarea { height: 90px; resize: none; }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-submit { width: 100%; background: var(--gold); color: var(--navy); border: none; border-radius: 6px; padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; letter-spacing: 0.04em; margin-top: 6px; transition: background 0.2s; }
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* SERVICES PAGE */
+  .services-full-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .service-full-card { background: var(--white); border: 1px solid var(--cream-dark); border-radius: 10px; padding: 36px; transition: all 0.25s; }
+  .service-full-card:hover { border-color: var(--gold); }
+  .service-full-card h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--text-dark); margin-bottom: 12px; }
+  .service-full-card p { font-size: 14px; color: var(--text-mid); line-height: 1.75; margin-bottom: 16px; }
+  .service-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+  .service-bullets li { font-size: 13px; color: var(--text-mid); display: flex; align-items: center; gap: 8px; }
+  .service-bullets li::before { content: 'u2736'; color: var(--gold); font-size: 9px; }
+  .service-cta { font-size: 13px; font-weight: 500; color: var(--gold); cursor: pointer; }
+
+  /* PRODUCTS */
+  .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .product-card { background: var(--white); border: 1px solid var(--cream-dark); border-radius: 10px; overflow: hidden; transition: all 0.25s; }
+  .product-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .product-card-header { background: var(--navy); padding: 28px; }
+  .product-card-header h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--white); font-weight: 700; margin-bottom: 4px; }
+  .product-card-header p { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 300; }
+  .product-card.andersen .product-card-header { background: var(--navy-mid); border-bottom: 2px solid var(--gold); }
+  .product-card-body { padding: 24px 28px; }
+  .product-card-body p { font-size: 14px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; }
+  .product-lines { display: flex; flex-wrap: wrap; gap: 8px; }
+  .product-line-tag { font-size: 12px; color: var(--text-mid); background: var(--cream); border: 1px solid var(--cream-dark); border-radius: 20px; padding: 4px 12px; }
+  .certified-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; padding: 5px 14px; font-size: 11px; color: var(--gold); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+
+  /* GALLERY ACCORDION */
+  .gallery-section { background: var(--white); }
+  .gallery-accordion { display: flex; flex-direction: column; gap: 16px; }
+  .gallery-panel { border: 1px solid var(--cream-dark); border-radius: 12px; overflow: hidden; background: var(--white); transition: border-color 0.25s; }
+  .gallery-panel.open { border-color: var(--gold); box-shadow: 0 4px 24px rgba(26,35,50,0.07); }
+  .gallery-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; cursor: pointer; background: var(--white); transition: background 0.2s; user-select: none; }
+  .gallery-panel-header:hover { background: var(--cream); }
+  .gallery-panel.open .gallery-panel-header { background: var(--navy); }
+  .gallery-panel-left { display: flex; align-items: center; gap: 16px; }
+  .gallery-panel-icon { font-size: 28px; }
+  .gallery-panel-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--text-dark); }
+  .gallery-panel.open .gallery-panel-title { color: var(--white); }
+  .gallery-panel-count { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+  .gallery-panel.open .gallery-panel-count { color: rgba(255,255,255,0.45); }
+  .gallery-panel-chevron { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--cream-dark); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--text-light); transition: all 0.3s; flex-shrink: 0; }
+  .gallery-panel.open .gallery-panel-chevron { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.4); color: var(--gold); transform: rotate(180deg); }
+  .gallery-panel-body { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1); }
+  .gallery-panel.open .gallery-panel-body { max-height: 620px; }
+  .gallery-scroll-wrap { padding: 24px 32px 32px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--gold) var(--cream-dark); }
+  .gallery-scroll-wrap::-webkit-scrollbar { height: 6px; }
+  .gallery-scroll-wrap::-webkit-scrollbar-track { background: var(--cream-dark); border-radius: 3px; }
+  .gallery-scroll-wrap::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+  .gallery-scroll-row { display: flex; gap: 16px; width: max-content; }
+  .gallery-thumb { width: 280px; height: 210px; flex-shrink: 0; border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; background: var(--navy-mid); }
+  .gallery-thumb:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,35,50,0.18); }
+  .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+  .gallery-thumb:hover img { transform: scale(1.06); }
+  .gallery-thumb-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 14px 12px; background: linear-gradient(to top, rgba(15,22,35,0.85), transparent); color: var(--white); font-size: 12px; font-weight: 300; letter-spacing: 0.04em; }
+  .gallery-add-note { margin-top: 40px; background: var(--cream); border: 1px dashed var(--gold); border-radius: 10px; padding: 24px 28px; text-align: center; }
+  .gallery-add-note p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+  .gallery-add-note code { background: var(--cream-dark); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--navy); }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(10,16,26,0.96); align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox-img { max-width: 88vw; max-height: 86vh; border-radius: 8px; object-fit: contain; }
+  .lightbox-close { position: absolute; top: 24px; right: 32px; color: rgba(255,255,255,0.55); font-size: 32px; cursor: pointer; transition: color 0.2s; line-height: 1; }
+  .lightbox-close:hover { color: var(--white); }
+  .lightbox-caption { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.45); font-size: 13px; white-space: nowrap; }
+  .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.45); font-size: 48px; cursor: pointer; transition: color 0.2s; padding: 16px; line-height: 1; }
+  .lightbox-nav:hover { color: var(--white); }
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .about-story p { font-size: 15px; color: var(--text-mid); line-height: 1.8; margin-bottom: 20px; font-weight: 300; }
+  .about-story strong { color: var(--text-dark); font-weight: 500; }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .value-card { padding: 28px; background: var(--cream); border: 1px solid var(--cream-dark); border-radius: 10px; text-align: center; }
+  .value-icon { font-size: 32px; margin-bottom: 14px; }
+  .value-card h4 { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--text-dark); margin-bottom: 8px; }
+  .value-card p { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+  .license-box { background: var(--navy); border-radius: 10px; padding: 32px; margin-top: 36px; }
+  .license-box h4 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 20px; margin-bottom: 16px; }
+  .license-items { display: flex; flex-direction: column; gap: 10px; }
+  .license-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.65); }
+  .license-item span { color: var(--gold); }
+
+
+  /* SCROLL ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+  .reveal-left.visible { opacity: 1; transform: none; }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+  .reveal-right.visible { opacity: 1; transform: none; }
+  .reveal-scale { opacity: 0; transform: scale(0.93); transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1); }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+  .stagger-1 { transition-delay: 0.05s; }
+  .stagger-2 { transition-delay: 0.13s; }
+  .stagger-3 { transition-delay: 0.21s; }
+  .stagger-4 { transition-delay: 0.29s; }
+  .stagger-5 { transition-delay: 0.37s; }
+  .stagger-6 { transition-delay: 0.45s; }
+
+  /* COUNTER */
+  .counter-num { display: inline-block; transition: color 0.3s; }
+
+  /* HERO SLIDESHOW */
+  .hero-slideshow { position: absolute; inset: 0; }
+  .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.4s ease-in-out, transform 8s ease; transform: scale(1.06); }
+  .hero-slide.active { opacity: 1; transform: scale(1.02); }
+  .hero-slide.prev { opacity: 0; transform: scale(1); }
+  .slideshow-dots { position: absolute; bottom: 80px; right: 64px; z-index: 3; display: flex; gap: 8px; }
+  .slideshow-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.35); border: none; cursor: pointer; padding: 0; transition: all 0.3s; }
+  .slideshow-dot.active { background: var(--gold); transform: scale(1.3); }
+  .slideshow-progress { position: absolute; bottom: 0; left: 0; height: 3px; background: var(--gold); z-index: 3; transition: none; }
+
+  /* ABOUT SHOWROOM */
+  .showroom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
+  .showroom-img { border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; background: var(--navy-light); position: relative; }
+  .showroom-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+  .showroom-img:hover img { transform: scale(1.04); }
+  .showroom-img.tall { aspect-ratio: 3/4; }
+  .family-banner { background: var(--navy); border-radius: 12px; padding: 40px 44px; margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .family-banner h3 { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--white); font-weight: 700; margin-bottom: 14px; line-height: 1.2; }
+  .family-banner h3 em { color: var(--gold); font-style: normal; }
+  .family-banner p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8; font-weight: 300; margin-bottom: 12px; }
+  .family-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); border-radius: 30px; padding: 6px 16px; font-size: 12px; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; margin-bottom: 20px; }
+  .family-stats-row { display: flex; gap: 0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+  .family-stat { flex: 1; padding: 16px; border-right: 1px solid rgba(255,255,255,0.1); text-align: center; }
+  .family-stat:last-child { border-right: none; }
+  .family-stat-num { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); font-weight: 700; line-height: 1; }
+  .family-stat-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; font-weight: 300; }
+
+  /* PULSE on phone CTA */
+  @keyframes pulse-gold { 0%,100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); } 50% { box-shadow: 0 0 0 8px rgba(201,168,76,0); } }
+  .nav-cta { animation: pulse-gold 2.8s infinite; }
+  .nav-cta:hover { animation: none; }
+
+  /* HOVER LIFT on brand items */
+  .brand-item { transition: background 0.2s, transform 0.2s, box-shadow 0.2s; }
+  .brand-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,35,50,0.08); }
+  .license-strip { background: var(--navy-mid); text-align: center; padding: 14px; font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+  .license-strip span { color: rgba(201,168,76,0.7); }
+  footer { background: var(--text-dark); padding: 48px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+  .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); font-weight: 600; margin-bottom: 4px; }
+  .footer-brand-tag { font-size: 11px; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; font-weight: 300; margin-bottom: 16px; }
+  .footer-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 300px; font-weight: 300; }
+  .footer-col h5 { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 16px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; cursor: pointer; transition: color 0.2s; font-weight: 300; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom { background: var(--text-dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 20px 48px; display: flex; justify-content: space-between; }
+  .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+  .footer-bottom a { color: rgba(201,168,76,0.6); text-decoration: none; }
+
+  /* ============================================================
+     MOBILE RESPONSIVE — 768px and below
+     ============================================================ */
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav {
+      padding: 0 20px;
+      height: 60px;
+    }
+    .nav-links {
+      display: none;
+    }
+    .nav-mobile-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-mobile-call {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: rgba(255,255,255,0.75);
+      border-radius: 1px;
+      transition: all 0.25s;
+    }
+
+    /* MOBILE MENU OVERLAY */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--navy);
+      z-index: 200;
+      flex-direction: column;
+      padding: 24px 28px;
+    }
+    .mobile-menu.open {
+      display: flex;
+    }
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .mobile-menu-close {
+      color: rgba(255,255,255,0.6);
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+    .mobile-menu-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 24px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .mobile-menu-links a:hover { color: var(--gold); }
+    .mobile-menu-cta {
+      margin-top: 32px;
+      background: var(--gold);
+      color: var(--navy);
+      text-align: center;
+      padding: 16px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      display: block;
+    }
+
+    /* HERO */
+    .hero-full {
+      min-height: 520px;
+    }
+    .hero-content {
+      padding: 0 24px 28px;
+      max-width: 100%;
+    }
+    .hero-content h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+    .hero-content p {
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .hero-actions {
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline-light {
+      width: 100%;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 14px;
+    }
+    .hero-stats {
+      width: 100%;
+    }
+    .hero-stat {
+      padding: 10px 8px;
+      flex: 1;
+    }
+    .hero-stat-num {
+      font-size: 15px;
+    }
+    .hero-stat-label {
+      font-size: 9px;
+    }
+    .slideshow-dots {
+      bottom: 24px;
+      right: 24px;
+    }
+    .photo-credit { display: none; }
+
+    /* TRUST BAR */
+    .trust-bar {
+      padding: 12px 16px;
+      gap: 0;
+      overflow-x: auto;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    .trust-item {
+      flex-shrink: 0;
+      font-size: 11px;
+      padding-right: 16px;
+    }
+    .trust-divider { display: none; }
+
+    /* SECTIONS */
+    section {
+      padding: 48px 20px;
+    }
+
+    /* HOME SERVICES */
+    .services-grid-2 {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .service-card-lg {
+      padding: 28px 22px;
+    }
+    .service-card-lg h3 {
+      font-size: 20px;
+    }
+    .section-header {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 16px;
+    }
+    .section-header .btn-dark {
+      width: 100%;
+      text-align: center;
+      margin-left: 0 !important;
+    }
+
+    /* BRANDS */
+    .brands-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .brand-item:nth-child(3n) { border-right: 1px solid var(--cream-dark); }
+    .brand-item:nth-child(2n) { border-right: none; }
+    .brand-item:nth-child(4) { border-bottom: 1px solid var(--cream-dark); }
+    .brand-item:nth-child(5) { border-bottom: 1px solid var(--cream-dark); }
+    .brand-item:nth-child(6) { border-bottom: none; }
+    .brand-item:nth-child(5) { border-bottom: none; }
+
+    /* SECTION TITLES */
+    .section-title { font-size: 28px; }
+
+    /* CONTACT */
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .contact-details { margin-top: 0; }
+
+    /* SERVICES PAGE */
+    .services-full-grid {
+      grid-template-columns: 1fr;
+    }
+    .page-hero {
+      padding: 48px 20px;
+    }
+    .page-hero .section-title { font-size: 30px; }
+
+    /* Design consultation banner */
+    .services-full-grid + div {
+      flex-direction: column !important;
+      gap: 20px !important;
+      padding: 28px 22px !important;
+    }
+    .services-full-grid + div .btn-primary {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* PRODUCTS */
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* GALLERY */
+    .gallery-panel-header {
+      padding: 18px 20px;
+    }
+    .gallery-panel-title {
+      font-size: 17px;
+    }
+    .gallery-scroll-wrap {
+      padding: 16px 20px 20px;
+    }
+    .gallery-thumb {
+      width: 220px;
+      height: 165px;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .values-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .showroom-grid {
+      grid-template-columns: 1fr;
+    }
+    .family-banner {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 28px 22px;
+    }
+    .family-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* FOOTER */
+    footer {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 36px 20px;
+    }
+    .footer-bottom {
+      padding: 16px 20px;
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+    }
+
+    /* STICKY CALL BAR */
+    .sticky-call-bar {
+      display: flex !important;
+    }
+  }
+
+  /* STICKY CALL BAR — mobile only */
+  .sticky-call-bar {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--gold);
+    color: var(--navy);
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    z-index: 100;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-top: 2px solid rgba(0,0,0,0.1);
+  }
+
+  @media (max-width: 768px) {
+    /* Add bottom padding so sticky bar doesn't cover content */
+    .footer-bottom {
+      padding-bottom: 72px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-name">Select Door &amp; Window</div>
+    <div class="nav-logo-tag">Est. Escondido, CA &middot; Lic. #930632</div>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
+    <li><a onclick="showPage('products')" id="nav-products">Products</a></li>
+    <li><a onclick="showPage('gallery')" id="nav-gallery">Gallery</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a href="tel:7604320206" class="nav-cta">&#128222; 760-432-0206</a></li>
+  </ul>
+  <div class="nav-mobile-right">
+    <a href="tel:7604320206" class="nav-mobile-call">&#128222; 760-432-0206</a>
+    <div class="nav-hamburger" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div>
+      <div class="nav-logo-name">Select Door &amp; Window</div>
+      <div class="nav-logo-tag">Escondido, CA &middot; Lic. #930632</div>
+    </div>
+    <div class="mobile-menu-close" onclick="closeMobileMenu()">&#10005;</div>
+  </div>
+  <div class="mobile-menu-links">
+    <a onclick="showPage('home');closeMobileMenu()">Home</a>
+    <a onclick="showPage('services');closeMobileMenu()">Services</a>
+    <a onclick="showPage('products');closeMobileMenu()">Products</a>
+    <a onclick="showPage('gallery');closeMobileMenu()">Gallery</a>
+    <a onclick="showPage('about');closeMobileMenu()">About</a>
+  </div>
+  <a href="tel:7604320206" class="mobile-menu-cta">&#128222;&nbsp; Call (760) 432-0206</a>
+</div>
+
+<!-- STICKY CALL BAR (mobile only) -->
+<a href="tel:7604320206" class="sticky-call-bar">
+  &#128222;&nbsp; Tap to Call &mdash; (760) 432-0206
+</a>
+
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero-full">
+    <!-- HERO SLIDESHOW — replace src URLs with your own photos when ready -->
+    <div class="hero-slideshow" id="heroSlideshow">
+      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1600&q=80')"></div>
+    </div>
+    <div class="slideshow-dots" id="slideshowDots"></div>
+    <div class="slideshow-progress" id="slideshowProgress"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><div class="hero-badge-dot"></div><span>Serving San Diego County Since 2008</span></div>
+      <h1>Doors &amp; Windows<br>Built to <em>Last</em></h1>
+      <p>Premium door and window installation, sales, and service for residential and commercial properties across Escondido and North County San Diego.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" onclick="document.getElementById('home-contact').scrollIntoView({behavior:'smooth'})">Request Free Estimate</a>
+        <a class="btn-outline-light" onclick="showPage('gallery')">View Our Work</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">15+</div><div class="hero-stat-label">Years in Business</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">3,000+</div><div class="hero-stat-label">Projects Completed</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">Lic. #930632</div><div class="hero-stat-label">Licensed &amp; Insured</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">All Brands</div><div class="hero-stat-label">Serviced &amp; Repaired</div></div>
+      </div>
+    </div>
+    <div class="photo-credit">Replace with your own bifold door photo</div>
+  </div>
+  <div class="trust-bar reveal">
+    <div class="trust-item"><span class="trust-dot">&#10022;</span> We Sell It</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><span class="trust-dot">&#10022;</span> We Install It</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><span class="trust-dot">&#10022;</span> We Service It</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><span class="trust-dot">&#10022;</span> Licensed &amp; Insured #930632</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><span class="trust-dot">&#10022;</span> Free In-Home Estimates</div>
+  </div>
+  <section class="services-preview">
+    <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div>
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Our Core Services</h2>
+        <p class="section-sub">Expert installation of doors and windows for every part of your home.</p>
+      </div>
+      <a class="btn-dark" onclick="showPage('services')" style="white-space:nowrap;margin-left:32px">View All Services &rarr;</a>
+    </div>
+    <div class="services-grid-2">
+      <div class="service-card-lg reveal reveal-left">
+        <div class="service-card-icon">&#129695;</div>
+        <h3>Exterior Windows &amp; Doors</h3>
+        <p>Energy-efficient window replacements and exterior door installations that improve your home's comfort, curb appeal, and security. We handle every measurement and installation in-house.</p>
+        <div class="service-tag-row">
+          <span class="service-tag">Replacement Windows</span>
+          <span class="service-tag">Patio &amp; Sliding Doors</span>
+          <span class="service-tag">Bi-Fold Systems</span>
+          <span class="service-tag">French Doors</span>
+          <span class="service-tag">Energy Star Rated</span>
+        </div>
+        <a class="service-link" onclick="showPage('services')">Learn more &rarr;</a>
+      </div>
+      <div class="service-card-lg reveal reveal-right">
+        <div class="service-card-icon">&#128682;</div>
+        <h3>Entry &amp; Interior Doors</h3>
+        <p>From a striking front entry door to a full set of interior doors throughout your home &mdash; we supply, custom-order, and install it all with precision and care.</p>
+        <div class="service-tag-row">
+          <span class="service-tag">Entry Doors</span>
+          <span class="service-tag">Interior Door Packages</span>
+          <span class="service-tag">Fiberglass &amp; Steel</span>
+          <span class="service-tag">Solid Wood</span>
+          <span class="service-tag">Custom Sizing</span>
+        </div>
+        <a class="service-link" onclick="showPage('services')">Learn more &rarr;</a>
+      </div>
+    </div>
+  </section>
+  <section class="brands-bg">
+    <div class="section-header" style="text-align:center">
+      <div class="section-label" style="text-align:center">Our Partners</div>
+      <h2 class="section-title" style="text-align:center">Brands We Carry &amp; Install</h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center">Trusted manufacturers backed by real warranties.</p>
+    </div>
+    <div class="brands-grid">
+      <div class="brand-item reveal-scale stagger-1"><div class="brand-name">Andersen</div><div class="brand-desc">Windows &amp; Doors</div><div class="brand-badge">Certified Dealer</div></div>
+      <div class="brand-item reveal-scale stagger-2"><div class="brand-name">Milgard</div><div class="brand-desc">Windows &amp; Patio Doors</div></div>
+      <div class="brand-item reveal-scale stagger-3"><div class="brand-name">La Cantina</div><div class="brand-desc">Folding &amp; Sliding Systems</div></div>
+      <div class="brand-item reveal-scale stagger-4"><div class="brand-name">Marvin</div><div class="brand-desc">Windows &amp; Doors</div></div>
+      <div class="brand-item reveal-scale stagger-5"><div class="brand-name">EL&amp;EL</div><div class="brand-desc">Wood Products</div></div>
+      <div class="brand-item reveal-scale stagger-6"><div class="brand-name">TM Cobb</div><div class="brand-desc">Interior Doors &amp; Millwork</div></div>
+    </div>
+  </section>
+  <section class="contact-bg" id="home-contact">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Get In Touch</div>
+        <h2 class="section-title" style="color:var(--white)">Let's Talk About<br>Your Project</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.55)">Free estimates, no pressure. We come to you, measure, and walk you through your options.</p>
+        <div class="contact-details">
+          <div class="contact-row"><div class="contact-icon">&#128205;</div><div><strong>1291 Pacific Oaks Place, Suite 116</strong><p>Escondido, CA 92029</p></div></div>
+          <div class="contact-row"><div class="contact-icon">&#128222;</div><div><strong>(760) 432-0206</strong><p>Mon&ndash;Fri 8am&ndash;5pm &middot; Sat by appointment</p></div></div>
+          <div class="contact-row"><div class="contact-icon">&#9993;</div><div><strong>office@selectdw.com</strong><p>We typically respond within one business day</p></div></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div style="margin-bottom:20px"><p style="color:var(--gold);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;margin-bottom:6px">Free Estimate Request</p><p style="color:rgba(255,255,255,0.5);font-size:13px;font-weight:300">Tell us about your project and we'll schedule a visit.</p></div>
+        <div class="form-grid-2"><div class="form-row"><label>First Name</label><input type="text" placeholder="John"></div><div class="form-row"><label>Last Name</label><input type="text" placeholder="Smith"></div></div>
+        <div class="form-row"><label>Phone</label><input type="tel" placeholder="(760) 555-0100"></div>
+        <div class="form-row"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+        <div class="form-row"><label>Product Interest</label><select><option value="">Select a category...</option><option>Exterior Windows &amp; Doors</option><option>Entry &amp; Interior Doors</option><option>Not Sure Yet</option></select></div>
+        <div class="form-row"><label>Tell Us About Your Project</label><textarea placeholder="E.g. replacing front door, 3-bedroom home..."></textarea></div>
+        <button class="form-submit">Send Estimate Request &rarr;</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SERVICES -->
+<div id="page-services" class="page">
+  <div class="page-hero">
+    <div class="section-label">What We Do</div>
+    <h1 class="section-title">Our Services</h1>
+    <p class="section-sub">Full-service door and window solutions from first consultation through installation &mdash; all handled by our in-house team.</p>
+  </div>
+  <section style="background:var(--white)">
+    <div class="services-full-grid">
+      <div class="service-full-card">
+        <div style="font-size:32px;margin-bottom:16px">&#129695;</div>
+        <h3>Exterior Windows</h3>
+        <p>Full window replacement using the industry's leading brands. We measure, order, and install &mdash; ensuring a precise fit, improved insulation, and a clean finish every time.</p>
+        <ul class="service-bullets">
+          <li>Dual-pane &amp; triple-pane insulated glass</li>
+          <li>Low-E coatings for SoCal heat reduction</li>
+          <li>Casement, double-hung, slider &amp; picture styles</li>
+          <li>Specialty shapes and custom sizes</li>
+          <li>Energy Star certified options available</li>
+        </ul>
+        <a class="service-cta" onclick="document.getElementById('services-contact').scrollIntoView({behavior:'smooth'})">Request a quote &rarr;</a>
+      </div>
+      <div class="service-full-card">
+        <div style="font-size:32px;margin-bottom:16px">&#127968;</div>
+        <h3>Patio &amp; Sliding Doors</h3>
+        <p>Premium exterior door systems that connect your indoor and outdoor spaces. We carry the full range from standard sliding glass to large-format folding wall systems.</p>
+        <ul class="service-bullets">
+          <li>Sliding glass &amp; multi-panel systems</li>
+          <li>French doors &mdash; single &amp; double</li>
+          <li>Bi-fold &amp; folding wall systems</li>
+          <li>Andersen Big Door Gallery products</li>
+          <li>La Cantina folding &amp; multi-slide systems</li>
+        </ul>
+        <a class="service-cta" onclick="document.getElementById('services-contact').scrollIntoView({behavior:'smooth'})">Request a quote &rarr;</a>
+      </div>
+      <div class="service-full-card">
+        <div style="font-size:32px;margin-bottom:16px">&#128682;</div>
+        <h3>Entry Doors</h3>
+        <p>Your front door sets the tone for your entire home. We carry a full range of styles and materials, and handle the installation with precision from the first measurement to final hardware.</p>
+        <ul class="service-bullets">
+          <li>Fiberglass, steel &amp; solid wood options</li>
+          <li>Custom sizing for non-standard openings</li>
+          <li>Hardware &amp; lockset packages</li>
+          <li>Sidelites &amp; transoms available</li>
+          <li>Andersen, Marvin &amp; EL&amp;EL entry systems</li>
+        </ul>
+        <a class="service-cta" onclick="document.getElementById('services-contact').scrollIntoView({behavior:'smooth'})">Request a quote &rarr;</a>
+      </div>
+      <div class="service-full-card">
+        <div style="font-size:32px;margin-bottom:16px">&#127969;</div>
+        <h3>Interior Doors</h3>
+        <p>Complete your home's look inside with matching interior door packages. From single replacement doors to full-home installs using TM Cobb and EL&amp;EL products.</p>
+        <ul class="service-bullets">
+          <li>Single door replacements</li>
+          <li>Full interior door packages</li>
+          <li>Flush, panel &amp; barn door styles</li>
+          <li>Pre-hung &amp; slab options</li>
+          <li>Hardware &amp; frame packages available</li>
+        </ul>
+        <a class="service-cta" onclick="document.getElementById('services-contact').scrollIntoView({behavior:'smooth'})">Request a quote &rarr;</a>
+      </div>
+    </div>
+    <div style="margin-top:40px;background:var(--cream);border:1px solid var(--cream-dark);border-radius:12px;padding:40px 48px;display:flex;justify-content:space-between;align-items:center;gap:32px">
+      <div>
+        <div style="font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Free Service</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--text-dark);margin-bottom:10px">Design Consultation</h3>
+        <p style="font-size:14px;color:var(--text-mid);max-width:520px;line-height:1.7">Not sure what you need? Our product specialists come to you for a free in-home consultation &mdash; measuring your openings, comparing options, and helping you choose the right products for your budget and style. No pressure, no obligation.</p>
+      </div>
+      <a class="btn-primary" style="white-space:nowrap" onclick="document.getElementById('services-contact').scrollIntoView({behavior:'smooth'})">Book a Visit &rarr;</a>
+    </div>
+  </section>
+  <section class="contact-bg" id="services-contact">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Ready to Start?</div>
+        <h2 class="section-title" style="color:var(--white)">Get a Free Estimate</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.55)">Tell us what you need and we'll come out, measure, and give you a no-pressure quote.</p>
+        <div class="contact-details">
+          <div class="contact-row"><div class="contact-icon">&#128222;</div><div><strong>(760) 432-0206</strong><p>Mon&ndash;Fri 8am&ndash;5pm</p></div></div>
+          <div class="contact-row"><div class="contact-icon">&#9993;</div><div><strong>office@selectdw.com</strong><p>Responds within one business day</p></div></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-grid-2"><div class="form-row"><label>First Name</label><input type="text" placeholder="John"></div><div class="form-row"><label>Last Name</label><input type="text" placeholder="Smith"></div></div>
+        <div class="form-row"><label>Phone</label><input type="tel" placeholder="(760) 555-0100"></div>
+        <div class="form-row"><label>Service Needed</label><select><option value="">Select...</option><option>Exterior Windows</option><option>Patio &amp; Sliding Doors</option><option>Entry Doors</option><option>Interior Doors</option><option>Design Consultation</option></select></div>
+        <div class="form-row"><label>Project Details</label><textarea placeholder="Tell us about your project..."></textarea></div>
+        <button class="form-submit">Request Estimate &rarr;</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PRODUCTS -->
+<div id="page-products" class="page">
+  <div class="page-hero">
+    <div class="section-label">What We Carry</div>
+    <h1 class="section-title">Our Products &amp; Brands</h1>
+    <p class="section-sub">We partner with the most trusted door and window manufacturers in the industry.</p>
+  </div>
+  <section style="background:var(--white)">
+    <div class="products-grid">
+      <div class="product-card andersen"><div class="product-card-header"><h3>Andersen</h3><p>Windows &amp; Doors &middot; Certified Dealer</p></div><div class="product-card-body"><div class="certified-badge">&#127942; Andersen Certified Dealer</div><p>As a certified Andersen dealer, we carry the full product lineup including the exclusive Big Door Gallery &mdash; large-format folding and sliding systems that transform any space.</p><div class="product-lines"><span class="product-line-tag">100 Series</span><span class="product-line-tag">200 Series</span><span class="product-line-tag">400 Series</span><span class="product-line-tag">E-Series</span><span class="product-line-tag">Big Door Gallery</span></div></div></div>
+      <div class="product-card"><div class="product-card-header"><h3>Milgard</h3><p>Windows &amp; Patio Doors</p></div><div class="product-card-body"><p>A California favorite &mdash; Milgard windows are designed for our climate, with strong energy efficiency ratings and a full lifetime warranty on most products.</p><div class="product-lines"><span class="product-line-tag">Tuscany Series</span><span class="product-line-tag">Style Line</span><span class="product-line-tag">Trinsic Series</span><span class="product-line-tag">Patio Doors</span></div></div></div>
+      <div class="product-card"><div class="product-card-header"><h3>La Cantina</h3><p>Folding &amp; Sliding Door Systems</p></div><div class="product-card-body"><p>La Cantina specializes in large opening door systems that blur the line between indoor and outdoor living. Perfect for patios and modern architecture.</p><div class="product-lines"><span class="product-line-tag">Bi-Fold Doors</span><span class="product-line-tag">Multi-Slide</span><span class="product-line-tag">Pivot Doors</span><span class="product-line-tag">Windows</span></div></div></div>
+      <div class="product-card"><div class="product-card-header"><h3>Marvin</h3><p>Windows &amp; Doors</p></div><div class="product-card-body"><p>Marvin is known for exceptional craftsmanship and design flexibility &mdash; a top choice for custom homes and remodels.</p><div class="product-lines"><span class="product-line-tag">Signature</span><span class="product-line-tag">Essential</span><span class="product-line-tag">Modern</span><span class="product-line-tag">Elevate</span></div></div></div>
+      <div class="product-card"><div class="product-card-header"><h3>EL&amp;EL</h3><p>Wood Products</p></div><div class="product-card-body"><p>EL&amp;EL delivers quality wood door and window products with a focus on traditional craftsmanship and natural materials.</p><div class="product-lines"><span class="product-line-tag">Wood Doors</span><span class="product-line-tag">Wood Windows</span><span class="product-line-tag">Custom Millwork</span></div></div></div>
+      <div class="product-card"><div class="product-card-header"><h3>TM Cobb</h3><p>Interior Doors &amp; Millwork</p></div><div class="product-card-body"><p>TM Cobb is a leading manufacturer of interior doors and architectural millwork &mdash; a go-to for builders and remodelers.</p><div class="product-lines"><span class="product-line-tag">Interior Doors</span><span class="product-line-tag">Door Frames</span><span class="product-line-tag">Moulding</span><span class="product-line-tag">Custom Orders</span></div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:48px"><p style="font-size:15px;color:var(--text-mid);margin-bottom:20px">Not sure which brand is right for your project?</p><a class="btn-primary" onclick="showPage('services')">Book a Free Consultation &rarr;</a></div>
+  </section>
+</div>
+
+<!-- GALLERY -->
+<div id="page-gallery" class="page">
+  <div class="page-hero">
+    <div class="section-label">Our Work</div>
+    <h1 class="section-title">Project Gallery</h1>
+    <p class="section-sub">Browse completed installations across North County San Diego. Click any category to expand, then scroll through the photos.</p>
+  </div>
+  <section class="gallery-section">
+    <div class="gallery-accordion">
+      <div class="gallery-panel open" id="panel-entry">
+        <div class="gallery-panel-header" onclick="togglePanel('panel-entry')">
+          <div class="gallery-panel-left"><div class="gallery-panel-icon">&#128682;</div><div><div class="gallery-panel-title">Entry Doors</div><div class="gallery-panel-count" id="count-entry">6 photos</div></div></div>
+          <div class="gallery-panel-chevron">&#9660;</div>
+        </div>
+        <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-entry"></div></div></div>
+      </div>
+      <div class="gallery-panel" id="panel-windows">
+        <div class="gallery-panel-header" onclick="togglePanel('panel-windows')">
+          <div class="gallery-panel-left"><div class="gallery-panel-icon">&#129695;</div><div><div class="gallery-panel-title">Exterior Windows</div><div class="gallery-panel-count" id="count-windows">6 photos</div></div></div>
+          <div class="gallery-panel-chevron">&#9660;</div>
+        </div>
+        <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-windows"></div></div></div>
+      </div>
+      <div class="gallery-panel" id="panel-patio">
+        <div class="gallery-panel-header" onclick="togglePanel('panel-patio')">
+          <div class="gallery-panel-left"><div class="gallery-panel-icon">&#127968;</div><div><div class="gallery-panel-title">Patio &amp; Sliding Doors</div><div class="gallery-panel-count" id="count-patio">6 photos</div></div></div>
+          <div class="gallery-panel-chevron">&#9660;</div>
+        </div>
+        <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-patio"></div></div></div>
+      </div>
+      <div class="gallery-panel" id="panel-interior">
+        <div class="gallery-panel-header" onclick="togglePanel('panel-interior')">
+          <div class="gallery-panel-left"><div class="gallery-panel-icon">&#127969;</div><div><div class="gallery-panel-title">Interior Doors</div><div class="gallery-panel-count" id="count-interior">6 photos</div></div></div>
+          <div class="gallery-panel-chevron">&#9660;</div>
+        </div>
+        <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-interior"></div></div></div>
+      </div>
+    </div>
+    <div class="gallery-add-note">
+      <p><strong>To swap in your own photos:</strong> Open this file in any text editor, find the <code>galleryData</code> object in the &lt;script&gt; section, and replace each <code>src</code> URL with your own image path or hosted URL. Each entry also has a <code>label</code> for the caption.</p>
+    </div>
+  </section>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxBg(event)">
+  <span class="lightbox-close" onclick="closeLightboxDirect()">&#10005;</span>
+  <span class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">&#8249;</span>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <span class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">&#8250;</span>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="page-hero">
+    <div class="section-label">Who We Are</div>
+    <h1 class="section-title">About Select Door &amp; Window</h1>
+    <p class="section-sub">A family-owned, licensed contractor serving Escondido and North County San Diego since 2008.</p>
+  </div>
+  <section style="background:var(--white)">
+    <div class="about-grid">
+      <div class="about-story">
+        <div class="section-label">Our Story</div>
+        <h2 class="section-title">Built on One Simple Promise</h2>
+        <p>Select Door and Window was founded on a straightforward idea: <strong>if we sell it, we install it, and we service it.</strong> No middlemen, no subcontractors, no finger-pointing if something isn't right.</p>
+        <p>Since 2008, we've been serving homeowners and businesses across Escondido and North County San Diego with that same commitment. From a single entry door replacement to a full window package, our team handles every step in-house.</p>
+        <p>We're a certified Andersen dealer and carry products from Milgard, La Cantina, Marvin, EL&amp;EL, and TM Cobb &mdash; so whether you're looking for a classic wood door, an energy-efficient window, or a dramatic folding wall system, we have the right product and the expertise to install it correctly.</p>
+        <div class="license-box">
+          <h4>Licensed, Bonded &amp; Insured</h4>
+          <div class="license-items">
+            <div class="license-item"><span>&#10022;</span> CA Contractor License #930632</div>
+            <div class="license-item"><span>&#10022;</span> Fully bonded &mdash; your project is protected</div>
+            <div class="license-item"><span>&#10022;</span> General liability insurance on every job</div>
+            <div class="license-item"><span>&#10022;</span> Andersen Certified Dealer</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Our Philosophy</div>
+        <h2 class="section-title">We Sell It. We Install It. We Service It.</h2>
+        <p style="font-size:14px;color:var(--text-mid);line-height:1.8;margin-bottom:28px">This isn't just a tagline &mdash; it's how we operate. Our team does the measurement, places the order, does the installation, and comes back if anything needs attention.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div style="padding:20px;background:var(--cream);border:1px solid var(--cream-dark);border-radius:8px"><div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);font-weight:700;line-height:1">15+</div><div style="font-size:13px;color:var(--text-light);margin-top:6px;font-weight:300">Years serving San Diego</div></div>
+          <div style="padding:20px;background:var(--cream);border:1px solid var(--cream-dark);border-radius:8px"><div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);font-weight:700;line-height:1">3,000+</div><div style="font-size:13px;color:var(--text-light);margin-top:6px;font-weight:300">Projects completed</div></div>
+          <div style="padding:20px;background:var(--cream);border:1px solid var(--cream-dark);border-radius:8px"><div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);font-weight:700;line-height:1">6</div><div style="font-size:13px;color:var(--text-light);margin-top:6px;font-weight:300">Premium brands carried</div></div>
+          <div style="padding:20px;background:var(--cream);border:1px solid var(--cream-dark);border-radius:8px"><div style="font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);font-weight:700;line-height:1">All</div><div style="font-size:13px;color:var(--text-light);margin-top:6px;font-weight:300">Brands serviced &amp; repaired</div></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SHOWROOM & FAMILY SECTION -->
+  <section style="background:var(--cream);padding:80px 48px 0">
+    <div class="section-label reveal">Our Showroom &amp; Team</div>
+    <h2 class="section-title reveal" style="margin-bottom:8px">Come See Us in Escondido</h2>
+    <p class="section-sub reveal" style="margin-bottom:0">Our showroom is open Monday through Friday. Come in and see doors and windows in person &mdash; touch the hardware, feel the difference between materials, and talk to someone who actually knows the products.</p>
+    <div class="showroom-grid">
+      <div class="showroom-img reveal reveal-left">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80" alt="Showroom interior" loading="lazy">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div class="showroom-img reveal reveal-right stagger-2">
+          <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&q=80" alt="Door display" loading="lazy">
+        </div>
+        <div class="showroom-img reveal reveal-right stagger-4">
+          <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Window display" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--cream);padding:48px 48px 80px">
+    <div class="family-banner reveal">
+      <div>
+        <div class="family-pill">&#127968; Family-Owned &amp; Operated</div>
+        <h3>A <em>Family Business</em><br>Built on Reputation</h3>
+        <p>Select Door &amp; Window is a family-run company, founded in Escondido in 2008. We started with a simple belief: that homeowners deserve a contractor who treats their project like it's their own home being worked on.</p>
+        <p>Over 15 years later, most of our new business still comes from referrals. That's not an accident &mdash; it's the result of showing up on time, doing the work right, and standing behind it after the job is done.</p>
+        <p>When you call us, you're talking to the people who will actually be on your project. Not a call center, not a franchise &mdash; just us.</p>
+      </div>
+      <div>
+        <div class="family-stats-row">
+          <div class="family-stat"><div class="family-stat-num">2008</div><div class="family-stat-label">Founded in Escondido</div></div>
+          <div class="family-stat"><div class="family-stat-num">100%</div><div class="family-stat-label">Family owned</div></div>
+        </div>
+        <div style="margin-top:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:24px">
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.8;margin:0">&#8220;We started this company because we saw too many homeowners get burned by contractors who disappeared after the sale. Our goal was simple: be the company we'd want to hire ourselves.&#8221;</p>
+          <p style="font-size:13px;color:var(--gold);margin-top:12px;margin-bottom:0;font-weight:500">&mdash; Select Door &amp; Window, Est. 2008</p>
+        </div>
+        <div style="margin-top:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:20px 24px">
+          <p style="font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:10px">Showroom Hours</p>
+          <p style="font-size:14px;color:rgba(255,255,255,0.7);margin:0;line-height:1.9">Mon &ndash; Fri: 8:00am &ndash; 5:00pm<br>Saturday: By appointment<br>Sunday: Closed</p>
+          <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-top:8px;margin-bottom:0">1291 Pacific Oaks Place, Suite 116<br>Escondido, CA 92029</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="background:var(--white);padding-top:80px">
+    <div class="section-header" style="text-align:center">
+      <div class="section-label" style="text-align:center">What Drives Us</div>
+      <h2 class="section-title" style="text-align:center">Our Values</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon">&#129309;</div><h4>Accountability</h4><p>We stand behind every product we sell and every installation we complete &mdash; no exceptions, no excuses.</p></div>
+      <div class="value-card"><div class="value-icon">&#128208;</div><h4>Craftsmanship</h4><p>Every measurement matters. We take pride in precision installs that look right and perform right for years.</p></div>
+      <div class="value-card"><div class="value-icon">&#128172;</div><h4>Transparency</h4><p>Clear pricing, honest timelines, and no surprise charges. You know what to expect before we start.</p></div>
+    </div>
+  </section>
+  <section class="contact-bg" style="padding:80px 48px">
+    <div style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="section-label" style="text-align:center">Work With Us</div>
+      <h2 class="section-title" style="color:var(--white);text-align:center">Ready to Start Your Project?</h2>
+      <p class="section-sub" style="margin:0 auto 36px;color:rgba(255,255,255,0.55);text-align:center">Get a free in-home estimate from our team. We come to you, take measurements, and walk you through the best options for your home and budget.</p>
+      <div style="display:flex;gap:16px;justify-content:center">
+        <a class="btn-primary" onclick="showPage('home');setTimeout(()=>document.getElementById('home-contact').scrollIntoView({behavior:'smooth'}),100)">Request Free Estimate</a>
+        <a class="btn-outline-light" href="tel:7604320206">Call (760) 432-0206</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="license-strip">CA Contractor License <span>#930632</span> &nbsp;&middot;&nbsp; Select Door and Window, Inc. &nbsp;&middot;&nbsp; Licensed &middot; Bonded &middot; Insured</div>
+<footer>
+  <div>
+    <div class="footer-brand-name">Select Door &amp; Window</div>
+    <div class="footer-brand-tag">Inc. &middot; Escondido, California</div>
+    <p class="footer-desc">Full-service door and window sales, installation, and repair serving North County San Diego since 2008. Andersen Certified Dealer.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Navigation</h5>
+    <ul class="footer-links">
+      <li><a onclick="showPage('home')">Home</a></li>
+      <li><a onclick="showPage('services')">Services</a></li>
+      <li><a onclick="showPage('products')">Products</a></li>
+      <li><a onclick="showPage('gallery')">Gallery</a></li>
+      <li><a onclick="showPage('about')">About Us</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Contact</h5>
+    <ul class="footer-links">
+      <li><a href="tel:7604320206">(760) 432-0206</a></li>
+      <li><a href="mailto:office@selectdw.com">office@selectdw.com</a></li>
+      <li><a>1291 Pacific Oaks Pl #116</a></li>
+      <li><a>Escondido, CA 92029</a></li>
+      <li><a href="https://www.facebook.com/selectdoorandwindow/" target="_blank">Facebook Page</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>&copy; 2026 Select Door and Window, Inc. All rights reserved.</p>
+  <p>CA Lic. <a>#930632</a></p>
+</div>
+
+<script>
+// ================================================================
+// GALLERY PHOTOS
+// To replace with your own images:
+//   1. Open this file in a text editor (Notepad, VS Code, etc.)
+//   2. Find this galleryData section
+//   3. Replace each "src" URL with your own image path or URL
+//   4. Update the "label" text for each photo caption
+// ================================================================
+const galleryData = {
+  entry: [
+    { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75', label: 'Fiberglass Entry Door \u00b7 Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=75', label: 'Steel Entry Door \u00b7 San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=75', label: 'Wood Entry Door \u00b7 Vista' },
+    { src: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=600&q=75', label: 'Entry Door with Sidelites \u00b7 Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&q=75', label: 'Double Entry Doors \u00b7 Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=75', label: 'Andersen Entry Door \u00b7 Oceanside' },
+  ],
+  windows: [
+    { src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=75', label: 'Full Window Replacement \u00b7 San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&q=75', label: 'Casement Windows \u00b7 Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=75', label: 'Double-Hung Windows \u00b7 Vista' },
+    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75', label: 'Milgard Sliding Windows \u00b7 Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=75', label: 'Picture Window \u00b7 San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=75', label: 'Marvin Windows \u00b7 Escondido' },
+  ],
+  patio: [
+    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75', label: 'Bi-Fold Patio System \u00b7 Vista' },
+    { src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&q=75', label: 'French Doors \u00b7 Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=600&q=75', label: 'Multi-Slide Door \u00b7 Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=75', label: 'Andersen Sliding Door \u00b7 San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=75', label: 'Double French Doors \u00b7 Vista' },
+    { src: 'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=600&q=75', label: 'La Cantina Folding Wall \u00b7 Oceanside' },
+  ],
+  interior: [
+    { src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=75', label: 'Interior Door Package \u00b7 Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=75', label: 'Panel Doors \u00b7 Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600566752734-2a0cd66be00e?w=600&q=75', label: 'Full Home Install \u00b7 Vista' },
+    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=75', label: 'TM Cobb Flush Doors \u00b7 San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=75', label: 'Barn Door \u00b7 Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=75', label: 'EL&EL Wood Doors \u00b7 Oceanside' },
+  ]
+};
+
+let currentCategory = [];
+let currentIndex = 0;
+
+function buildGallery() {
+  Object.entries(galleryData).forEach(([cat, photos]) => {
+    const row = document.getElementById('scroll-' + cat);
+    const countEl = document.getElementById('count-' + cat);
+    if (!row) return;
+    if (countEl) countEl.textContent = photos.length + ' photo' + (photos.length !== 1 ? 's' : '');
+    photos.forEach((photo, i) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'gallery-thumb';
+      thumb.innerHTML = '<img src="' + photo.src + '" alt="' + photo.label + '" loading="lazy"><div class="gallery-thumb-label">' + photo.label + '</div>';
+      thumb.addEventListener('click', () => openLightbox(cat, i));
+      row.appendChild(thumb);
+    });
+  });
+}
+
+function togglePanel(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function openLightbox(cat, index) {
+  currentCategory = galleryData[cat];
+  currentIndex = index;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateLightbox() {
+  const photo = currentCategory[currentIndex];
+  document.getElementById('lightbox-img').src = photo.src;
+  document.getElementById('lightbox-caption').textContent = photo.label + '  (' + (currentIndex + 1) + ' / ' + currentCategory.length + ')';
+}
+
+function closeLightboxBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightboxDirect();
+}
+function closeLightboxDirect() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lightboxNav(dir) {
+  currentIndex = (currentIndex + dir + currentCategory.length) % currentCategory.length;
+  updateLightbox();
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'ArrowLeft') lightboxNav(-1);
+  if (e.key === 'Escape') closeLightboxDirect();
+});
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+buildGallery();
+
+function openMobileMenu() {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// HERO SLIDESHOW
+(function() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsContainer = document.getElementById('slideshowDots');
+  const progressBar = document.getElementById('slideshowProgress');
+  const INTERVAL = 5000;
+  let current = 0;
+  let timer = null;
+  let startTime = null;
+  let rafId = null;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'slideshow-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Slide ' + (i+1));
+    dot.addEventListener('click', () => { goTo(i); resetTimer(); });
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    slides[current].classList.add('prev');
+    setTimeout(() => slides[current].classList.remove('prev'), 1500);
+    dotsContainer.children[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+  }
+
+  function next() { goTo((current + 1) % slides.length); }
+
+  function resetTimer() {
+    clearInterval(timer);
+    startTime = performance.now();
+    cancelAnimationFrame(rafId);
+    animateProgress();
+    timer = setInterval(() => { next(); startTime = performance.now(); }, INTERVAL);
+  }
+
+  function animateProgress() {
+    rafId = requestAnimationFrame((now) => {
+      const elapsed = now - startTime;
+      const pct = Math.min((elapsed / INTERVAL) * 100, 100);
+      progressBar.style.width = pct + '%';
+      progressBar.style.transition = 'none';
+      if (pct < 100) animateProgress();
+    });
+  }
+
+  resetTimer();
+})();
+
+
+// INTERSECTION OBSERVER for scroll reveals
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// RE-OBSERVE when pages switch
+const pageObserver = new MutationObserver(() => {
+  document.querySelectorAll('.reveal:not(.visible), .reveal-left:not(.visible), .reveal-right:not(.visible), .reveal-scale:not(.visible)').forEach(el => {
+    revealObserver.observe(el);
+  });
+});
+pageObserver.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
+
+// COUNTER ANIMATION
+function animateCounter(el, target, suffix) {
+  let start = 0;
+  const duration = 1400;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(ease * target);
+    el.textContent = current.toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString() + suffix;
+  };
+  requestAnimationFrame(step);
+}
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.counted) {
+      entry.target.dataset.counted = '1';
+      const target = parseInt(entry.target.dataset.target);
+      const suffix = entry.target.dataset.suffix || '';
+      animateCounter(entry.target, target, suffix);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.hero-stat-num').forEach(el => {
+  const text = el.textContent.trim();
+  if (text === '15+') { el.dataset.target = 15; el.dataset.suffix = '+'; el.textContent = '0+'; statObserver.observe(el); }
+  else if (text === '3,000+') { el.dataset.target = 3000; el.dataset.suffix = '+'; el.textContent = '0+'; statObserver.observe(el); }
+});
+
+</script>
+</body>
+</html>
