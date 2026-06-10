@@ -6,6 +6,100 @@
 <title>Gallery | Select Door &amp; Window</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+  .gallery-section { background: var(--white); }
+
+  .filter-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .filter-chip {
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    border: 1px solid var(--cream-dark);
+    background: var(--white);
+    color: var(--text-mid);
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .filter-chip:hover { border-color: var(--navy); color: var(--navy); }
+  .filter-chip.active {
+    background: var(--navy);
+    color: var(--gold);
+    border-color: var(--navy);
+    font-weight: 500;
+  }
+
+  .masonry-grid {
+    columns: 3 220px;
+    column-gap: 12px;
+  }
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    display: block;
+  }
+  .masonry-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.4s ease;
+    object-fit: cover;
+  }
+  .masonry-item.normal img { aspect-ratio: 4/3; }
+  .masonry-item.tall img   { aspect-ratio: 2/3; }
+  .masonry-item:hover img  { transform: scale(1.05); }
+  .masonry-item-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 28px 14px 12px;
+    background: linear-gradient(to top, rgba(15,22,35,0.85), transparent);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .masonry-item:hover .masonry-item-overlay { opacity: 1; }
+  .masonry-item-cat {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(26,35,50,0.75);
+    border-radius: 20px;
+    padding: 3px 10px;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .masonry-item:hover .masonry-item-cat { opacity: 1; }
+
+  .masonry-grid.fading { opacity: 0; transition: opacity 0.15s; }
+  .masonry-grid.visible { opacity: 1; transition: opacity 0.25s; }
+
+  .gallery-add-note { margin-top: 40px; background: var(--cream); border: 1px dashed var(--gold); border-radius: 10px; padding: 24px 28px; text-align: center; }
+  .gallery-add-note p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+  .gallery-add-note code { background: var(--cream-dark); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--navy); }
+
+  @media (max-width: 768px) {
+    .masonry-grid { columns: 2 160px; }
+    .filter-row { gap: 8px; }
+    .filter-chip { padding: 6px 14px; font-size: 12px; }
+  }
+</style>
 </head>
 <body>
 
@@ -52,45 +146,17 @@
   &#128222;&nbsp; Tap to Call &mdash; (760) 432-0206
 </a>
 
-<div class="page-hero">
+<div class="page-hero" style="background-image: linear-gradient(rgba(26,35,50,0.82), rgba(26,35,50,0.82)), url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=80');">
   <div class="section-label">Our Work</div>
   <h1 class="section-title">Project Gallery</h1>
-  <p class="section-sub">Browse completed installations across North County San Diego. Click any category to expand, then scroll through the photos.</p>
+  <p class="section-sub">Browse completed installations across North County San Diego.</p>
 </div>
 
 <section class="gallery-section">
-  <div class="gallery-accordion">
-    <div class="gallery-panel open" id="panel-entry">
-      <div class="gallery-panel-header" onclick="togglePanel('panel-entry')">
-        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#128682;</div><div><div class="gallery-panel-title">Entry Doors</div><div class="gallery-panel-count" id="count-entry">6 photos</div></div></div>
-        <div class="gallery-panel-chevron">&#9660;</div>
-      </div>
-      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-entry"></div></div></div>
-    </div>
-    <div class="gallery-panel" id="panel-windows">
-      <div class="gallery-panel-header" onclick="togglePanel('panel-windows')">
-        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#129695;</div><div><div class="gallery-panel-title">Exterior Windows</div><div class="gallery-panel-count" id="count-windows">6 photos</div></div></div>
-        <div class="gallery-panel-chevron">&#9660;</div>
-      </div>
-      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-windows"></div></div></div>
-    </div>
-    <div class="gallery-panel" id="panel-patio">
-      <div class="gallery-panel-header" onclick="togglePanel('panel-patio')">
-        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#127968;</div><div><div class="gallery-panel-title">Patio &amp; Sliding Doors</div><div class="gallery-panel-count" id="count-patio">6 photos</div></div></div>
-        <div class="gallery-panel-chevron">&#9660;</div>
-      </div>
-      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-patio"></div></div></div>
-    </div>
-    <div class="gallery-panel" id="panel-interior">
-      <div class="gallery-panel-header" onclick="togglePanel('panel-interior')">
-        <div class="gallery-panel-left"><div class="gallery-panel-icon">&#127969;</div><div><div class="gallery-panel-title">Interior Doors</div><div class="gallery-panel-count" id="count-interior">6 photos</div></div></div>
-        <div class="gallery-panel-chevron">&#9660;</div>
-      </div>
-      <div class="gallery-panel-body"><div class="gallery-scroll-wrap"><div class="gallery-scroll-row" id="scroll-interior"></div></div></div>
-    </div>
-  </div>
+  <div class="filter-row" id="filterRow"></div>
+  <div class="masonry-grid visible" id="masonryGrid"></div>
   <div class="gallery-add-note">
-    <p><strong>To swap in your own photos:</strong> Open <code>gallery.html</code> in any text editor, find the <code>galleryData</code> object in the &lt;script&gt; section, and replace each <code>src</code> URL with your own image path or hosted URL. Each entry also has a <code>label</code> for the caption.</p>
+    <p><strong>To swap in your own photos:</strong> Open <code>gallery.html</code> in any text editor, find the <code>galleryData</code> object in the &lt;script&gt; section, and replace each <code>src</code> URL with your own image path or hosted URL.</p>
   </div>
 </section>
 
@@ -147,77 +213,125 @@
 //   4. Update the "label" text for each photo caption
 // ================================================================
 const galleryData = {
-  entry: [
-    { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75', label: 'Fiberglass Entry Door · Escondido' },
-    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=75', label: 'Steel Entry Door · San Marcos' },
-    { src: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=75', label: 'Wood Entry Door · Vista' },
-    { src: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=600&q=75', label: 'Entry Door with Sidelites · Carlsbad' },
-    { src: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&q=75', label: 'Double Entry Doors · Escondido' },
-    { src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=75', label: 'Andersen Entry Door · Oceanside' },
+  patio: [
+    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=75', label: 'Bi-Fold Patio System · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&q=75', label: 'French Doors · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=800&q=75', label: 'Multi-Slide Door · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=75', label: 'Andersen Sliding Door · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=75', label: 'Double French Doors · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=800&q=75', label: 'La Cantina Folding Wall · Oceanside' },
   ],
   windows: [
-    { src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=75', label: 'Full Window Replacement · San Marcos' },
-    { src: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&q=75', label: 'Casement Windows · Escondido' },
-    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=75', label: 'Double-Hung Windows · Vista' },
-    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75', label: 'Milgard Sliding Windows · Carlsbad' },
-    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=75', label: 'Picture Window · San Marcos' },
-    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=75', label: 'Marvin Windows · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=75', label: 'Full Window Replacement · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=75', label: 'Casement Windows · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&q=75', label: 'Double-Hung Windows · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=75', label: 'Milgard Sliding Windows · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=75', label: 'Picture Window · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=75', label: 'Marvin Windows · Escondido' },
   ],
-  patio: [
-    { src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75', label: 'Bi-Fold Patio System · Vista' },
-    { src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&q=75', label: 'French Doors · Carlsbad' },
-    { src: 'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=600&q=75', label: 'Multi-Slide Door · Escondido' },
-    { src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=75', label: 'Andersen Sliding Door · San Marcos' },
-    { src: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=75', label: 'Double French Doors · Vista' },
-    { src: 'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=600&q=75', label: 'La Cantina Folding Wall · Oceanside' },
+  entry: [
+    { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=75', label: 'Fiberglass Entry Door · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=75', label: 'Steel Entry Door · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=75', label: 'Wood Entry Door · Vista' },
+    { src: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=800&q=75', label: 'Entry Door with Sidelites · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&q=75', label: 'Double Entry Doors · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=75', label: 'Andersen Entry Door · Oceanside' },
   ],
   interior: [
-    { src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=75', label: 'Interior Door Package · Carlsbad' },
-    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=75', label: 'Panel Doors · Escondido' },
-    { src: 'https://images.unsplash.com/photo-1600566752734-2a0cd66be00e?w=600&q=75', label: 'Full Home Install · Vista' },
-    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=75', label: 'TM Cobb Flush Doors · San Marcos' },
-    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=600&q=75', label: 'Barn Door · Escondido' },
-    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&q=75', label: 'EL&EL Wood Doors · Oceanside' },
+    { src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=75', label: 'Interior Door Package · Carlsbad' },
+    { src: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=75', label: 'Panel Doors · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600566752734-2a0cd66be00e?w=800&q=75', label: 'Full Home Install · Vista' },
+    { src: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=75', label: 'TM Cobb Flush Doors · San Marcos' },
+    { src: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&q=75', label: 'Barn Door · Escondido' },
+    { src: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=75', label: 'EL&EL Wood Doors · Oceanside' },
   ]
 };
 
-let currentCategory = [];
-let currentIndex = 0;
+const categoryOrder = ['patio', 'windows', 'entry', 'interior'];
+const categoryLabels = {
+  patio:    'Patio & Big Doors',
+  windows:  'Windows',
+  entry:    'Entry Doors',
+  interior: 'Interior Doors'
+};
 
-function buildGallery() {
-  Object.entries(galleryData).forEach(([cat, photos]) => {
-    const row = document.getElementById('scroll-' + cat);
-    const countEl = document.getElementById('count-' + cat);
-    if (!row) return;
-    if (countEl) countEl.textContent = photos.length + ' photo' + (photos.length !== 1 ? 's' : '');
-    photos.forEach((photo, i) => {
-      const thumb = document.createElement('div');
-      thumb.className = 'gallery-thumb';
-      thumb.innerHTML = '<img src="' + photo.src + '" alt="' + photo.label + '" loading="lazy"><div class="gallery-thumb-label">' + photo.label + '</div>';
-      thumb.addEventListener('click', () => openLightbox(cat, i));
-      row.appendChild(thumb);
+// Build flat photo list in display order
+const allPhotos = [];
+categoryOrder.forEach(cat => {
+  galleryData[cat].forEach(photo => {
+    allPhotos.push({ ...photo, cat });
+  });
+});
+
+// Tall pattern: every 5th item (index 0, 5, 10, 15, 20) is tall
+function isTall(i) { return i % 5 === 0; }
+
+let activeFilter = 'all';
+let flatFiltered = [];
+
+function renderGrid(filter) {
+  const grid = document.getElementById('masonryGrid');
+  grid.classList.remove('visible');
+  grid.classList.add('fading');
+
+  setTimeout(() => {
+    flatFiltered = filter === 'all'
+      ? allPhotos
+      : allPhotos.filter(p => p.cat === filter);
+
+    grid.innerHTML = '';
+    flatFiltered.forEach((photo, i) => {
+      const item = document.createElement('div');
+      item.className = 'masonry-item ' + (isTall(i) ? 'tall' : 'normal');
+      item.innerHTML =
+        '<img src="' + photo.src + '" alt="' + photo.label + '" loading="lazy">' +
+        '<div class="masonry-item-overlay">' + photo.label + '</div>' +
+        (filter === 'all' ? '<div class="masonry-item-cat">' + categoryLabels[photo.cat] + '</div>' : '');
+      item.addEventListener('click', () => openLightbox(i));
+      grid.appendChild(item);
     });
+
+    grid.classList.remove('fading');
+    grid.classList.add('visible');
+  }, 150);
+}
+
+// Filter chips
+function buildChips() {
+  const row = document.getElementById('filterRow');
+  const filters = [{ key: 'all', label: 'All' }].concat(
+    categoryOrder.map(k => ({ key: k, label: categoryLabels[k] }))
+  );
+  filters.forEach(f => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-chip' + (f.key === 'all' ? ' active' : '');
+    btn.textContent = f.label;
+    btn.addEventListener('click', () => {
+      if (activeFilter === f.key) return;
+      activeFilter = f.key;
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid(f.key);
+    });
+    row.appendChild(btn);
   });
 }
 
-function togglePanel(id) {
-  document.getElementById(id).classList.toggle('open');
-}
+// Lightbox
+let currentIndex = 0;
 
-function openLightbox(cat, index) {
-  currentCategory = galleryData[cat];
+function openLightbox(index) {
   currentIndex = index;
   updateLightbox();
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function updateLightbox() {
-  const photo = currentCategory[currentIndex];
+  const photo = flatFiltered[currentIndex];
   document.getElementById('lightbox-img').src = photo.src;
-  document.getElementById('lightbox-caption').textContent = photo.label + '  (' + (currentIndex + 1) + ' / ' + currentCategory.length + ')';
+  document.getElementById('lightbox-caption').textContent =
+    photo.label + '  (' + (currentIndex + 1) + ' / ' + flatFiltered.length + ')';
 }
-
 function closeLightboxBg(e) {
   if (e.target === document.getElementById('lightbox')) closeLightboxDirect();
 }
@@ -226,10 +340,9 @@ function closeLightboxDirect() {
   document.body.style.overflow = '';
 }
 function lightboxNav(dir) {
-  currentIndex = (currentIndex + dir + currentCategory.length) % currentCategory.length;
+  currentIndex = (currentIndex + dir + flatFiltered.length) % flatFiltered.length;
   updateLightbox();
 }
-
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
   if (e.key === 'ArrowRight') lightboxNav(1);
@@ -237,7 +350,8 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightboxDirect();
 });
 
-buildGallery();
+buildChips();
+renderGrid('all');
 </script>
 </body>
 </html>
