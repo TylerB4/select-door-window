@@ -4,28 +4,57 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static, single-file website for **Select Door & Window**, a family-owned door and window contractor in Escondido, CA. The entire site lives in one HTML file: `select_door_window.html`.
+This is a static website for **Select Door & Window**, a family-owned door and window contractor in Escondido, CA.
 
-There is no build system, no package manager, no framework, and no server. Open `select_door_window.html` directly in a browser to develop and preview.
+There is no build system, no package manager, no framework, and no server. Open any HTML file directly in a browser to develop and preview.
+
+## Active Site: `SDWWebsite/`
+
+The current working version lives in `SDWWebsite/` as a proper multi-page site:
+
+| File | Page |
+|---|---|
+| `index.html` | Home — hero slideshow, service preview, brands, contact form |
+| `services.html` | Services — 4 service cards, quote form |
+| `products.html` | Products — 6 brand cards |
+| `gallery.html` | Gallery — accordion + lightbox |
+| `about.html` | About — story, showroom, family banner, values |
+| `styles.css` | All shared CSS |
+| `scripts.js` | Shared JS: mobile menu + scroll reveal |
+
+The original `select_door_window.html` at the repo root is a legacy single-file SPA — kept for reference, not the active version.
 
 ## Architecture
 
-The site is a single-page application implemented entirely in one HTML file with no external dependencies beyond two Google Fonts. Navigation between the five "pages" (Home, Services, Products, Gallery, About) works by toggling a CSS `active` class — only the active `.page` div is shown (`display: block`); the rest are hidden (`display: none`). The `showPage(name)` function handles all navigation.
+No JavaScript framework — plain HTML, CSS, and vanilla JS. No external dependencies beyond two Google Fonts.
 
-**Key structural patterns:**
-- **CSS custom properties** (`--navy`, `--gold`, `--cream`, etc.) drive the entire color palette and are defined on `:root`. All styling changes should use these variables.
-- **Scroll reveal animations** use IntersectionObserver with `.reveal`, `.reveal-left`, `.reveal-right`, `.reveal-scale` classes. Elements animate in when they enter the viewport. A `MutationObserver` re-registers elements when pages switch, since off-screen pages are hidden and elements may not have been observed yet.
-- **Hero slideshow** is a self-contained IIFE at the bottom of `<script>` using `setInterval` + `requestAnimationFrame` for the progress bar.
-- **Gallery** is data-driven: `galleryData` object maps category keys (`entry`, `windows`, `patio`, `interior`) to arrays of `{ src, label }`. `buildGallery()` generates DOM from this data at page load. To swap photos, edit only `galleryData`.
-- **Lightbox** tracks `currentCategory` (array) and `currentIndex` (int) as module-level vars; arrow key navigation is wired in a `keydown` listener.
-- **Service bullets** use the CSS `::before` pseudo-element with `content: '\2736'` (✶) — this is a Unicode escape that must stay as a CSS string literal, not a raw character.
+**Shared patterns (styles.css / scripts.js):**
+- **CSS custom properties** (`--navy`, `--gold`, `--cream`, etc.) defined on `:root` drive the entire color palette. All style changes should use these variables.
+- **Scroll reveal animations** use IntersectionObserver with `.reveal`, `.reveal-left`, `.reveal-right`, `.reveal-scale` classes. Elements animate in when they enter the viewport. Wired in `scripts.js`.
+- **Mobile menu** (`#mobileMenu`) is `display: none` at desktop by default; shown as `display: flex` via `.open` class on mobile. Toggle functions `openMobileMenu()` / `closeMobileMenu()` are in `scripts.js`.
+- **Service bullets** use `content: '\2736'` in CSS `::before` — keep as a CSS string literal, not a raw Unicode character.
+
+**Page-specific JS (inline in each file):**
+- `index.html` — Hero slideshow (IIFE using `setInterval` + `requestAnimationFrame` for the progress bar) and counter animation for the "15+" / "3,000+" stats.
+- `gallery.html` — `galleryData` object, `buildGallery()`, accordion `togglePanel()`, lightbox open/close/navigate. `currentCategory` (array) and `currentIndex` (int) are module-level vars. Arrow key + Escape keyboard nav wired to `keydown`.
+
+**Navigation** uses real `href` links between pages. Each page hardcodes `class="active"` on its own nav link.
 
 ## Customization Points
 
-- **Photos**: Replace Unsplash URLs in `galleryData` (JS, ~line 1074) and in `.hero-slide` background-image styles (~line 641) with own hosted images.
-- **Contact info**: Phone, email, and address appear in multiple sections — search for `760-432-0206` and `office@selectdw.com` to find all instances.
-- **Stats**: "15+" and "3,000+" in the hero are animated by `statObserver`; the counter targets are set inline in the observer callback (~line 1284).
+- **Photos**: Replace Unsplash URLs in `galleryData` in `gallery.html` and the `.hero-slide` background-image styles in `index.html`.
+- **Contact info**: Phone, email, and address appear across multiple files — search for `760-432-0206` and `office@selectdw.com`.
+- **Hero stats**: Counter targets for "15+" and "3,000+" are set in the inline `<script>` at the bottom of `index.html`.
 
 ## The `old/` Directory
 
-Contains three prior HTML iterations of the site (`select_door_window_no_testimonials.html`, `select_door_window_multipage.html`, `select_door_window_hero_update.html`). These are historical references — not deployed, not linked.
+Three prior HTML iterations of the site. Historical reference only — not deployed, not linked.
+
+## Session State
+
+_Updated automatically at session end. Resume here next time._
+
+- **Branch:** `fix/service-bullets-unicode`
+- **Last worked on:** Split single-file site into `SDWWebsite/` multi-page structure; fixed double-header bug (`display:none` on `.mobile-menu`); added `CLAUDE.md`; configured Stop hook to auto-update this section
+- **Open:** PR not yet created — `gh` CLI not installed; open manually at `https://github.com/TylerB4/select-door-window/compare/fix/service-bullets-unicode`
+- **Next session:** Merge or continue work on `SDWWebsite/`; install `gh` CLI if PR creation via terminal is wanted
