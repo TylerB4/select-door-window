@@ -104,7 +104,6 @@
   </div>
   <div class="services-grid-2">
     <div class="service-card-lg reveal reveal-left">
-      <div class="service-card-icon">&#129695;</div>
       <h3>Exterior Windows &amp; Doors</h3>
       <p>Energy-efficient window replacements and exterior door installations that improve your home's comfort, curb appeal, and security. We handle every measurement and installation in-house.</p>
       <div class="service-tag-row">
@@ -117,7 +116,6 @@
       <a class="service-link" href="services.html">Learn more &rarr;</a>
     </div>
     <div class="service-card-lg reveal reveal-right">
-      <div class="service-card-icon">&#128682;</div>
       <h3>Entry &amp; Interior Doors</h3>
       <p>From a striking front entry door to a full set of interior doors throughout your home &mdash; we supply, custom-order, and install it all with precision and care.</p>
       <div class="service-tag-row">
@@ -163,15 +161,16 @@
         <div class="contact-row"><div class="contact-icon">&#9993;</div><div><strong>office@selectdw.com</strong><p>We typically respond within one business day</p></div></div>
       </div>
     </div>
-    <div class="contact-form">
+    <form class="contact-form" action="contact.php" method="POST">
+      <input type="hidden" name="_subject" value="New Estimate Request — Select Door &amp; Window">
       <div style="margin-bottom:20px"><p style="color:var(--gold);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;margin-bottom:6px">Free Estimate Request</p><p style="color:rgba(255,255,255,0.5);font-size:13px;font-weight:300">Tell us about your project and we'll schedule a visit.</p></div>
-      <div class="form-grid-2"><div class="form-row"><label>First Name</label><input type="text" placeholder="John"></div><div class="form-row"><label>Last Name</label><input type="text" placeholder="Smith"></div></div>
-      <div class="form-row"><label>Phone</label><input type="tel" placeholder="(760) 555-0100"></div>
-      <div class="form-row"><label>Email</label><input type="email" placeholder="you@email.com"></div>
-      <div class="form-row"><label>Product Interest</label><select><option value="">Select a category...</option><option>Exterior Windows &amp; Doors</option><option>Entry &amp; Interior Doors</option><option>Not Sure Yet</option></select></div>
-      <div class="form-row"><label>Tell Us About Your Project</label><textarea placeholder="E.g. replacing front door, 3-bedroom home..."></textarea></div>
-      <button class="form-submit">Send Estimate Request &rarr;</button>
-    </div>
+      <div class="form-grid-2"><div class="form-row"><label>First Name</label><input type="text" name="first_name" placeholder="John" required></div><div class="form-row"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div></div>
+      <div class="form-row"><label>Phone</label><input type="tel" name="phone" placeholder="(760) 555-0100"></div>
+      <div class="form-row"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+      <div class="form-row"><label>Product Interest</label><select name="product_interest"><option value="">Select a category...</option><option>Exterior Windows &amp; Doors</option><option>Entry &amp; Interior Doors</option><option>Not Sure Yet</option></select></div>
+      <div class="form-row"><label>Tell Us About Your Project</label><textarea name="message" placeholder="E.g. replacing front door, 3-bedroom home..."></textarea></div>
+      <button type="submit" class="form-submit">Send Estimate Request &rarr;</button>
+    </form>
   </div>
 </section>
 
