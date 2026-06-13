@@ -14,13 +14,16 @@ The current working version lives in `SDWWebsite/` as a proper multi-page site:
 
 | File | Page |
 |---|---|
-| `index.html` | Home — hero slideshow, service preview, brands, contact form |
-| `services.html` | Services — 4 service cards, quote form |
-| `products.html` | Products — 6 brand cards |
+| `index.html` | Home — hero slideshow, service preview, 9 brands grid, contact form |
+| `services.html` | Services — 4 service cards, installation section (Full Replacement / Retrofit), quote form |
+| `products.html` | Products — 9 brand cards (Andersen, MQ, Milgard, La Cantina, Marvin, All Weather, Windoor, EL&EL, TM Cobb) |
 | `gallery.html` | Gallery — accordion + lightbox |
-| `about.html` | About — story, showroom, family banner, values |
+| `about.html` | About — story, showroom, family banner, values, animated counters |
+| `contact.php` | Form handler — receives POST from both quote forms, mails to office@selectdw.com, redirects to thank-you.html |
+| `thank-you.html` | Confirmation page after form submit |
 | `styles.css` | All shared CSS |
 | `scripts.js` | Shared JS: mobile menu + scroll reveal |
+| `images/` | Folder structure ready for owner photos (gallery/patio, gallery/windows, gallery/entry, gallery/interior, hero/, products/, showroom/) |
 
 The original `select_door_window.html` at the repo root is a legacy single-file SPA — kept for reference, not the active version.
 
@@ -55,6 +58,9 @@ Three prior HTML iterations of the site. Historical reference only — not deplo
 _Updated automatically at session end. Resume here next time._
 
 - **Branch:** `fix/service-bullets-unicode`
-- **Last worked on:** Split single-file site into `SDWWebsite/` multi-page structure; fixed double-header bug (`display:none` on `.mobile-menu`); added `CLAUDE.md`; configured Stop hook to auto-update this section
-- **Open:** PR not yet created — `gh` CLI not installed; open manually at `https://github.com/TylerB4/select-door-window/compare/fix/service-bullets-unicode`
-- **Next session:** Merge or continue work on `SDWWebsite/`; install `gh` CLI if PR creation via terminal is wanted
+- **Last worked on:** Full site build — multi-page structure, 9 brands, PHP form handler, scroll/hover animations, installation section on services page, service area updated to "throughout San Diego County", CSLB license links, Google Maps address links, commercial references removed, images/ folder structure created
+- **Open PR:** `gh` CLI not installed — open manually at `https://github.com/TylerB4/select-door-window/compare/fix/service-bullets-unicode` (latest commit pushed: `a2280a0`)
+- **Pending — owner action:** Populate `SDWWebsite/images/` folders with real job photos, then ask Claude to swap all Unsplash URLs
+- **Pending — owner action:** Collect Google reviews for a testimonials section (on hold until then)
+- **Pending — owner action:** Set up Google Business Profile (most important pre-launch step)
+- **Next session:** Merge PR, then deploy to GoDaddy hosting (upload `SDWWebsite/` contents to public_html); or continue adding content/features
